@@ -61,7 +61,7 @@ def main():
         data_path += ".tsv"
 
     if not os.path.exists(data_path):
-        raise FileNotFoundError(f"Expression file not found:\n{data_path}")
+        raise FileNotFoundError(f"❌ Expression file not found:\n{data_path}")
 
     # Load and transpose expression matrix (genes in columns, samples in rows)
     df = pd.read_csv(data_path, sep="\t", index_col=0).T
@@ -79,7 +79,7 @@ def main():
     output_file = os.path.join(results_path, f"{cohort}_expression_summary.tsv")
     summary_df.to_csv(output_file, sep="\t")
 
-    print(f"Descriptive summary for {cohort} saved to:\n{output_file}")
+    print(f"✅ Descriptive summary for {cohort} saved to:\n{output_file}")
 
 if __name__ == "__main__":
     main()
