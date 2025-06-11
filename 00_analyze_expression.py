@@ -1,3 +1,5 @@
+#!/usr/bin/env python3
+
 """
 Script: 00_analyze_expression.py
 
@@ -33,46 +35,62 @@ Author:
     Date: 2025-06-11
 """
 
+#!/usr/bin/env python3
+
 import sys
 import os
 import pandas as pd
 
 def main():
+    # ✅ Check argument count
     if len(sys.argv) != 3:
-        print("Usage: python3 00_analyze_expression.py <GENE> <COHORT>")
+        print("❌ Usage: python3 analyze_expression.py <GENE> <COHORT>")
         sys.exit(1)
 
+    # ✅ Parse command-line arguments
     gene = sys.argv[1]
     cohort = sys.argv[2].upper()
 
-    # Determine script directory and project root
+    # ✅ Resolve absolute script and project paths
     script_dir = os.path.dirname(os.path.abspath(__file__))
     project_dir = os.path.abspath(os.path.join(script_dir, "..", ".."))
-
-    # Define data and output paths
     data_path = os.path.join(project_dir, "data", "processed", f"TCGA.{cohort}.sampleMap_HiSeqV2")
     results_path = os.path.join(project_dir, "results", "tables")
     os.makedirs(results_path, exist_ok=True)
 
-    # Attempt fallback if file extension is missing
+    # 🔁 Fallback to .tsv extension if needed
     if not os.path.exists(data_path) and os.path.exists(data_path + ".tsv"):
         data_path += ".tsv"
 
+    # ❌ Fail if expression file still not found
     if not os.path.exists(data_path):
-        raise FileNotFoundError(f"Expression file not found:\n{data_path}")
+        print(f"❌ Expression file not found:\n{data_path}")
+        sys.exit(1)
 
-    # Load and transpose expression matrix (genes in columns, samples in rows)
-    df = pd.read_csv(data_path, sep="\t", index_col=0).T
+    print("✅ Expression file located.")
 
-    # Extract gene expression vector
-    if gene not in df.columns:
-        raise KeyError(f"Gene {gene} not found in expression data columns.")
+    # ✅ Load expression matrix
+    try:
+        df = pd.read_csv(data_path, sep="\t", index_col=0)
+        print("✅ Expression matrix loaded.")
+    except Exception as e:
+        print(f"❌ Failed to load expression matrix:\n{e}")
+        sys.exit(1)
 
-    gene_vector = df[gene]
+    # ❌ Check if requested gene exists
+    if gene not in df.index:
+        print(f"❌ Gene '{gene}' not found in expression matrix.")
+        sys.exit(1)
+
+    # ✅ Extract gene expression vector
+    expression_vector = df.loc[gene]
     output_file = os.path.join(results_path, f"{cohort}_{gene}_expression.tsv")
-    gene_vector.to_csv(output_file, sep="\t")
-
-    print(f"Expression data for {gene} in {cohort} saved to:\n{output_file}")
+    try:
+        expression_vector.to_csv(output_file, sep="\t", header=False)
+        print(f"✅ Expression vector for {gene} saved to:\n{output_file}")
+    except Exception as e:
+        print(f"❌ Failed to save expression vector:\n{e}")
+        sys.exit(1)
 
 if __name__ == "__main__":
     main()
