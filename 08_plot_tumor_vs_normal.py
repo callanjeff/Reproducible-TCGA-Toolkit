@@ -7,7 +7,7 @@ import sys
 
 # === USAGE ===
 if len(sys.argv) != 3:
-    print("Usage: python3 09_plot_prrg2_tumor_vs_normal.py <COHORT> <GENE_SYMBOL>")
+    print("Usage: python3 08_plot_prrg2_tumor_vs_normal.py <COHORT> <GENE_SYMBOL>")
     sys.exit(1)
 
 cohort = sys.argv[1].upper()  # e.g., KIRC
