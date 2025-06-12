@@ -45,4 +45,4 @@ python3 07_generate_visuals.py --cohort $COHORT
 # 08 - Tumor vs. normal boxplot for PRRG2 expression
 python3 08_plot_tumor_vs_normal.py $COHORT $GENE
 
-echo "✅ Pipeline complete for $GENE in $COHORT"
+echo "HIGH-FIVE, GREAT SUCCESS! ITS GOOD! ✅ PIPELINE COMPLETE for $GENE in $COHORT"
