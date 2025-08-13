@@ -14,11 +14,11 @@ Usage:
 Inputs:
     - <TCGA_COHORT>: TCGA cancer type abbreviation (e.g., LUAD, KIRC)
     - Expression file located at: data/processed/TCGA.<COHORT>.sampleMap_HiSeqV2 
-      (or fallback to .tsv extension)
+    (or fallback to .tsv extension)
 
 Outputs:
     - A tab-separated file containing descriptive statistics for each gene
-      saved to: results/tables/<COHORT>_expression_summary.tsv
+    saved to: results/tables/<COHORT>_expression_summary.tsv
 
 Statistics Reported:
     — Mean expression across samples
