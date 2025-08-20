@@ -22,7 +22,7 @@ Inputs:
 
 Outputs:
     - A tab-separated file containing the expression values for the specified gene
-      across all samples, saved to: results/tables/<COHORT>_<GENE>_expression.tsv
+    across all samples, saved to: results/tables/<COHORT>_<GENE>_expression.tsv
 
 Requirements:
     - pandas
