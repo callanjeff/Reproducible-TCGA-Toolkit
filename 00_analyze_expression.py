@@ -18,7 +18,7 @@ Inputs:
     - <GENE_SYMBOL>: Name of the gene (e.g., PRRG2, CD8A)
     - <TCGA_COHORT>: TCGA cancer type abbreviation (e.g., LUAD, KIRC)
     - Expression file located at: data/processed/TCGA.<COHORT>.sampleMap_HiSeqV2 
-      (or fallback to .tsv extension)
+    (or fallback to .tsv extension)
 
 Outputs:
     - A tab-separated file containing the expression values for the specified gene
